@@ -1,0 +1,35 @@
+{
+  "name": "electron-simple",
+  "version": "1.0.0",
+  "description": "simple app based on ele",
+  "main": "/app/main.js",
+  "scripts": {
+    "dev": "electron app/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "react*",
+    "stylus",
+    "typescript",
+    "webpack2"
+  ],
+  "author": "vecchio",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.28.1",
+    "electron": "^1.6.8",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.17.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.3.2",
+    "webpack": "^2.5.1"
+  },
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
+}
