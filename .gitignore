@@ -19,4 +19,5 @@ DerivedData
 Pods
 Podfile.lock
 /dist/*
-node_modules/**
+# Self
+/node_modules/*
