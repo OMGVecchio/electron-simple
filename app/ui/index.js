@@ -1,2 +1,2 @@
-require('./test.tsx');
-import './test2.styl';
+require('./avatar.jpg');
+require('./index.styl');

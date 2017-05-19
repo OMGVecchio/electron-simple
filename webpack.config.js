@@ -16,16 +16,26 @@ module.exports = {
             test: /\.css$/,
             // 代替旧版loader，不能省略后缀“-loader”[可通过resolveLoader.moduleExtensions开启旧方法]
             use: ExtractTextPlugin.extract({
-                use: 'css-loader'
+                use: 'css-loader?minimize'
             })
         }, {
             test: /\.styl(us)?$/,
             use: ExtractTextPlugin.extract({
-                use: ['css-loader', 'stylus-loader']
+                use: ['css-loader?minimize', 'stylus-loader']
             })
         }, {
+            test: /\.less$/,
+            use: ['css-loader?minimize', 'less-loader']
+        }, {
+            // 移除 module.preLoaders 和 module.postLoaders
+            enforce: 'pre',
             test: /\.tsx?$/,
+            // 或者 awesome-typescript-loader
             use: ['ts-loader']
+        }, {
+            test: /\.(png|jpg)$/,
+            // 基于 url-loader 可以在限制的范围内生成 Base64 字符串直接嵌入页面
+            use: 'url-loader?limit=8192'
         }]
     },
     plugins: [
@@ -35,5 +45,9 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
         })
-    ]
+    ],
+    resolve: {
+        // 告诉 webpack 检索时自动解析的文件扩展名
+        extensions: [".tsx", ".ts", ".js"]
+    }
 }
