@@ -84,13 +84,43 @@ module.exports = {
         // 告诉 webpack 检索时自动解析的文件扩展名
         extensions: ['.tsx', '.ts', '.js', 'jsx']
     },
+    // 详情 see https://webpack.js.org/configuration/dev-server/
     devServer: {
+        staticOptions: {
+            redirect: true
+        },
+        // 监听服务源，可通过数组设置多个
+        contentBase: path.join(__dirname, 'dist'),
+        // 通过代理切合带后端接口的项目
+        proxy: {
+            '/proxy': {
+                target: '',
+                pathRewrite: {},
+                secure: false
+            }
+        },
+        // 定义引用的资源路径，默认为 /
+        publicPath: '/',
+        // 响应头
+        headers: {},
         port: 8000,
         host: '127.0.0.1',
+        // 应对使用 HTML5 History API 的场景，可重定向路由
         historyApiFallback: true,
-        noInfo: false,
+        compress: true,
+        // 输出信息
         stats: 'minimal',
+        noInfo: false,
+        quiet: false,
+        // 服务是否为 https
+        https: false,
         hot: true,
-        inline: true
+        // inline or iframe
+        inline: true,
+        setup(app) {
+            app.get('/test', (req, res, next) => {
+                res.json({test:'自定义路由'});
+            });
+        }
     }
 }
