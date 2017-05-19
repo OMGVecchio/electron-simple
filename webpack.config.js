@@ -3,12 +3,16 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const publicPath = '';
 
 module.exports = {
+    devtool: 'cheap-module-source-map',
     entry: './app/ui/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: publicPath,
+        sourceMapFilename: '[name].map'
     },
     module: {
         // 代替旧版loaders，有更多的可配置选项
@@ -23,6 +27,9 @@ module.exports = {
             use: ExtractTextPlugin.extract({
                 use: ['css-loader?minimize', 'stylus-loader']
             })
+        }, {
+            test: /\.jsx?$/,
+            use: 'babel-loader'
         }, {
             test: /\.less$/,
             use: ['css-loader?minimize', 'less-loader']
@@ -44,10 +51,46 @@ module.exports = {
         // 从不同的 bundle 中提取所有的公共模块，并且将他们加入公共 bundle 中
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
+        // 或在启动命令行中添加 --optimize-minimize
+        new webpack.optimize.UglifyJsPlugin({
+            // 最紧凑的输出
+            beautify: false,
+            // 删除所有的注释
+            comments: false,
+            compress: {
+                // 在UglifyJs删除没有用到的代码时不输出警告
+                warnings: false,
+                // 删除所有的 `console` 语句
+                // 还可以兼容ie浏览器
+                drop_console: true,
+                // 内嵌定义了但是只用到一次的变量
+                collapse_vars: true,
+                // 提取出出现多次但是没有定义成变量去引用的静态值
+                reduce_vars: true
+            }
+        }),
+        // 或在命令行中添加类似 --define process.env.NODE_ENV="'production'" 定义 Nodejs 变量
+        // DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV的地方都会被替换为"production"
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
         })
     ],
     resolve: {
         // 告诉 webpack 检索时自动解析的文件扩展名
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: ['.tsx', '.ts', '.js', 'jsx']
+    },
+    devServer: {
+        port: 8000,
+        host: '127.0.0.1',
+        historyApiFallback: true,
+        noInfo: false,
+        stats: 'minimal',
+        hot: true,
+        inline: true
     }
 }
