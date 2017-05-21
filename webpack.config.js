@@ -2,8 +2,10 @@
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const publicPath = '';
+const conf = require('./conf');
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -78,7 +80,9 @@ module.exports = {
         // DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV的地方都会被替换为"production"
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
-        })
+        }),
+        // 自动生成首页，避免在入口页面中手动拼装打包后的资源地址
+        new HtmlWebpackPlugin({})
     ],
     resolve: {
         // 告诉 webpack 检索时自动解析的文件扩展名
@@ -103,7 +107,7 @@ module.exports = {
         publicPath: '/',
         // 响应头
         headers: {},
-        port: 8000,
+        port: conf.port,
         host: '127.0.0.1',
         // 应对使用 HTML5 History API 的场景，可重定向路由
         historyApiFallback: true,
