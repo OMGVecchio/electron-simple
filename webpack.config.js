@@ -22,6 +22,7 @@ module.exports = {
             test: /\.css$/,
             // 代替旧版loader，不能省略后缀“-loader”[可通过resolveLoader.moduleExtensions开启旧方法]
             use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
                 use: 'css-loader?minimize'
             })
         }, {
@@ -82,7 +83,18 @@ module.exports = {
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         // 自动生成首页，避免在入口页面中手动拼装打包后的资源地址
-        new HtmlWebpackPlugin({})
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'app/ui/index.ejs'),
+            filename: 'index.html',
+            hash: false,
+            favicon: false,
+            minify: false,
+            cache: false,
+            showError: false,
+            chunks: 'all',
+            title: 'electron',
+            xhtml: false
+        })
     ],
     resolve: {
         // 告诉 webpack 检索时自动解析的文件扩展名
@@ -94,7 +106,8 @@ module.exports = {
             redirect: true
         },
         // 监听服务源，可通过数组设置多个
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: path.join(__dirname, 'app/ui/'),
+        filename: 'index.html',
         // 通过代理切合带后端接口的项目
         proxy: {
             '/proxy': {
@@ -118,7 +131,7 @@ module.exports = {
         quiet: false,
         // 服务是否为 https
         https: false,
-        hot: true,
+        // hot: true,
         // inline or iframe
         inline: true,
         setup(app) {
