@@ -98,7 +98,12 @@ module.exports = {
     ],
     resolve: {
         // 告诉 webpack 检索时自动解析的文件扩展名
-        extensions: ['.tsx', '.ts', '.js', 'jsx']
+        extensions: ['.tsx', '.ts', '.js', 'jsx'],
+        alias: {
+            'resource': path.join(__dirname, 'app/ui/resource'),
+            'components': path.join(__dirname, 'app/ui/components'),
+            'containers': path.join(__dirname, 'app/ui/containers')
+        }
     },
     // 详情 see https://webpack.js.org/configuration/dev-server/
     devServer: {

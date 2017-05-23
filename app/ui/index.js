@@ -1,22 +1,16 @@
+'use strict'
+
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import { Router, Route, hashHistory, Link } from 'react-router'
-
-class Hello extends Component {
-    render() {
-        return (
-            <div>
-                hello I'm a route
-            </div>
-        )
-    }
-}
+import { Router, IndexRoute, Route, hashHistory, Link } from 'react-router'
+import Hello from 'components/hello/hello'
+import World from 'components/world/world'
 
 render(
     <div>
-        asdsad
         <Router history={ hashHistory }>
-            <Route path="/" component={ Hello } />
+            <Route path='/' component={ Hello } />
+            <Route path='/test' component={ World } />
         </Router>
     </div>,
     document.getElementById('app')
