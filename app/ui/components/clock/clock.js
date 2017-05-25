@@ -9,15 +9,18 @@ export default class Clock extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            time: new Date().toLocaleTimeString()
+            time: new Date().toLocaleTimeString(),
+            count: 1
         }
     }
     handleTimer() {
-        setTimeout(() => this.setTimer(), 1000)
+        setInterval(() => this.setTimer(), 1000)
     }
     setTimer() {
-        this.state.time = new Date().toLocaleTimeString()
-        this.render()
+        this.setState({
+            time: new Date().toLocaleTimeString(),
+            count: ++this.state.count
+        })
     }
     componentDidMount() {
         this.handleTimer()
@@ -27,7 +30,7 @@ export default class Clock extends Component {
         return (
             <div className={style.body}>
                 <p>
-                    the time is {this.state.time}
+                    the time is {this.state.time}, the count is {this.state.count}
                 </p>
                 <p>
                     <Link to='/test'>Go new</Link>
