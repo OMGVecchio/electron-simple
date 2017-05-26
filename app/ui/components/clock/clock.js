@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import render from 'react-dom'
-import style from './clock.styl'
+import './clock.styl'
 
 export default class Clock extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class Clock extends Component {
     render() {
         window.state = this.state
         return (
-            <div className={style.body}>
+            <div className='clock'>
                 <p>
                     the time is {this.state.time}, the count is {this.state.count}
                 </p>

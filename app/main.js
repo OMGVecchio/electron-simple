@@ -29,14 +29,14 @@ let win = null
 
 let createWindow = () => {
     win = new BrowserWindow({
-        width: '100%',
-        height: '100%',
+        width: '900',
+        height: '900',
         resizable: true,
         title: 'test'
     })
 
     // trun on console
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // TODO 瞎 BB，待研究
     // dev 阶段，入口协议为 http 和 file 应该都可以吧。两种模式可参见 Vue 和 React
