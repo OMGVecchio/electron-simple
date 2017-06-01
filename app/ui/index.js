@@ -7,6 +7,7 @@ import 'resource/css/common.styl'
 import Clock from 'components/clock/clock'
 import World from 'components/world/world'
 import Sidebar from 'components/sidebar/sidebar'
+import Canvas from 'components/canvas/canvas'
 
 render(
     <div class="app-wrap">
@@ -17,6 +18,7 @@ render(
             <Router history={ hashHistory }>
                 <Route path='/' component={ Clock } />
                 <Route path='/test' component={ World } />
+                <Route path='/canvas' component={ Canvas } />
             </Router>
         </div>
     </div>,

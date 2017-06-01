@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
-const publicPath = '';
-const conf = require('./conf');
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+const publicPath = ''
+const conf = require('./conf')
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -94,7 +94,16 @@ module.exports = {
             chunks: 'all',
             title: 'electron',
             xhtml: false
-        })
+        }),
+        //new CopyWebpackPlugin([{
+        //
+        //}]),
+        function() {
+            this.plugin('done', (stat) => {
+                console.log('已经打包完了')
+
+            })
+        }
     ],
     resolve: {
         // 告诉 webpack 检索时自动解析的文件扩展名
@@ -141,8 +150,8 @@ module.exports = {
         inline: true,
         setup(app) {
             app.get('/test', (req, res, next) => {
-                res.json({test:'自定义路由'});
-            });
+                res.json({test:'自定义路由'})
+            })
         }
     }
 }

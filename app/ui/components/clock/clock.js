@@ -35,6 +35,9 @@ export default class Clock extends Component {
                 <p>
                     <Link to='/test'>Go new</Link>
                 </p>
+                <p>
+                    <Link to='/canvas'>Go canvas</Link>
+                </p>
             </div>
         )
     }
