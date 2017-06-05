@@ -10,16 +10,18 @@ import Sidebar from 'components/sidebar/sidebar'
 import Canvas from 'components/canvas/canvas'
 
 render(
-    <div class="app-wrap">
-        <div class="side-wrap fl">
-            <Sidebar />
+    <div className="app-wrap clearfix">
+        <div className="content-wrap fl">
+            <div className="content clearfix">
+                <Router history={ hashHistory }>
+                    <Route path='/' component={ Clock } />
+                    <Route path='/test' component={ World } />
+                    <Route path='/canvas' component={ Canvas } />
+                </Router>
+            </div>
         </div>
-        <div class="content-wrap fl">
-            <Router history={ hashHistory }>
-                <Route path='/' component={ Clock } />
-                <Route path='/test' component={ World } />
-                <Route path='/canvas' component={ Canvas } />
-            </Router>
+        <div className="side-wrap fl">
+            <Sidebar />
         </div>
     </div>,
     document.getElementById('app')

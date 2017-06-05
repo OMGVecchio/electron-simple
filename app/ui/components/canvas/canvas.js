@@ -12,18 +12,19 @@ export default class Canvas extends Component {
             ctx: null,
             video: null
         }
+        this.capture = this.capture.bind(this)
     }
     componentDidMount() {
-        // this.state.canvas = document.querySelector('#canvas')
-        // this.state.video = document.querySelector('#video')
+        this.state.canvas = document.querySelector('#canvas')
+        this.state.video = document.querySelector('#video')
         // this.setWenGl()
-        // this.setCanvas()
-        // this.setCamera()
+        this.setCanvas()
+        this.setCamera()
     }
     setCanvas() {
         let ctx = this.state.ctx = this.state.canvas.getContext('2d')
         ctx.fillStyle = '#aaddff'
-        ctx.fillRect(0, 0, 50, 50)
+        ctx.fillRect(0, 0, 600, 400)
     }
     setWenGl() {
         let webGl = this.state.ctx = this.state.canvas.getContext('webgl')
@@ -50,12 +51,17 @@ export default class Canvas extends Component {
                 console.log(error)
             })
     }
+    capture() {
+        this.state.ctx.drawImage(this.state.video, 0, 0, 600, 400)
+        window.ss = this.state.canvas.toDataURL()
+    }
     render() {
         return (
             <div>
-                <canvas id='canvas' width='400' height='400'>
+                <canvas id='canvas' width='600' height='400'>
 
                 </canvas>
+                <button onClick={this.capture}>捕获</button>
                 <video id="video">
 
                 </video>
