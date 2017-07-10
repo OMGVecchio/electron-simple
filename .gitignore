@@ -21,3 +21,4 @@ Podfile.lock
 /dist/*
 # Self
 /node_modules/*
+npm-debug.log

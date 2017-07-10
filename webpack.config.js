@@ -80,7 +80,9 @@ module.exports = {
         // 或在命令行中添加类似 --define process.env.NODE_ENV="'production'" 定义 Nodejs 变量
         // DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV的地方都会被替换为"production"
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
+            // production 不会再程序出错时给出提示，此处应根据环境做切换
+            // 'process.env.NODE_ENV': JSON.stringify('production')
+            'process.env.NODE_ENV': JSON.stringify('development')
         }),
         // 自动生成首页，避免在入口页面中手动拼装打包后的资源地址
         new HtmlWebpackPlugin({
@@ -109,9 +111,9 @@ module.exports = {
         // 告诉 webpack 检索时自动解析的文件扩展名
         extensions: ['.tsx', '.ts', '.js', 'jsx'],
         alias: {
-            'resource': path.join(__dirname, 'app/ui/resource'),
-            'components': path.join(__dirname, 'app/ui/components'),
-            'containers': path.join(__dirname, 'app/ui/containers')
+            'r': path.join(__dirname, 'app/ui/resource'),
+            'com': path.join(__dirname, 'app/ui/components'),
+            'con': path.join(__dirname, 'app/ui/containers')
         }
     },
     // 详情 see https://webpack.js.org/configuration/dev-server/

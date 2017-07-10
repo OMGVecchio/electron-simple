@@ -2,10 +2,13 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import render from 'react-dom'
+
 import './sidebar.styl'
 
 export default class Sidebar extends Component {
+    back() {
+        window.history.go(-1)
+    }
     render() {
         return (
             <div className='r-sidebar'>
@@ -16,7 +19,11 @@ export default class Sidebar extends Component {
                     <li>
                         <Link to='/'>首页</Link>
                     </li>
+                    <li>
+                        <Link to='/test'>测试页</Link>
+                    </li>
                 </ul>
+                <a onClick={this.back}>返回</a>
             </div>
         )
     }
