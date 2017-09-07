@@ -8,6 +8,8 @@ const publicPath = ''
 const conf = require('./conf')
 
 module.exports = {
+    // 编译环境属性。该值为 electron 打包编译时的环境，若不设置，前台调用 electron模块 时需要用 “window.require”
+    target: 'electron-renderer',
     devtool: 'cheap-module-source-map',
     entry: './app/ui/index.js',
     output: {
@@ -110,10 +112,12 @@ module.exports = {
     resolve: {
         // 告诉 webpack 检索时自动解析的文件扩展名
         extensions: ['.tsx', '.ts', '.js', 'jsx'],
+        // 检索路径时的别名
         alias: {
             'r': path.join(__dirname, 'app/ui/resource'),
             'com': path.join(__dirname, 'app/ui/components'),
-            'con': path.join(__dirname, 'app/ui/containers')
+            'con': path.join(__dirname, 'app/ui/containers'),
+            'u': path.join(__dirname, 'app/utils')
         }
     },
     // 详情 see https://webpack.js.org/configuration/dev-server/

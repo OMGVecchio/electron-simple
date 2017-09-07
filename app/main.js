@@ -1,7 +1,9 @@
+'use strict'
+
 const electron = require('electron')
 const path = require('path')
 const url = require('url')
-const conf = require('../conf');
+const conf = require('../conf')
 const winUrl = process.env.NODE_ENV === 'dev'
     ? `http://localhost:${conf.port}/`
     : `file://${__dirname}/XXX`
@@ -22,12 +24,18 @@ const {
     Tray,
     net,
     // powerMonitor, must require after win-ready
-    protocol
+    protocol,
+    shell
 } = electron
 
 let win = null
 
-let createWindow = () => {
+ipcMain.on('test', (e, t) => {
+    console.log(t)
+    e.sender.send('callback', 'vecchio');
+})
+
+const createWindow = () => {
     win = new BrowserWindow({
         width: '900',
         height: '900',
