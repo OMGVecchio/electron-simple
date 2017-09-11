@@ -22,7 +22,7 @@ export default class Index extends Component {
 
     }
     componentDidMount() {
-
+        this.bindEvent()
     }
     // 在组件接收到一个新的prop时被调用
     componentWillReceiveProps() {
@@ -43,6 +43,17 @@ export default class Index extends Component {
     // 在组件从 DOM 中移除的时候立刻被调用
     componentWillUnmount() {
 
+    }
+    bindEvent() {
+        this.refs.dropObj.ondrapover = () => {
+            return false
+        }
+        this.refs.dropObj.ondrapleave = () => {
+            return false
+        }
+        this.refs.dropObj.ondrop = (e) => {
+            return false
+        }
     }
     render() {
         return (
