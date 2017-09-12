@@ -7,6 +7,9 @@ const path = require('path')
 const publicPath = ''
 const conf = require('./conf')
 
+/**
+ * https://doc.webpack-china.org/configuration/
+ */
 module.exports = {
     // 编译环境属性。该值为 electron 打包编译时的环境，若不设置，前台调用 electron模块 时需要用 “window.require”
     target: 'electron-renderer',
