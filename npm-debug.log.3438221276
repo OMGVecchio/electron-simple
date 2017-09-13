@@ -1,0 +1,27 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'electron' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+4 verbose run-script [ 'preelectron', 'electron', 'postelectron' ]
+5 info lifecycle electron-simple@1.0.0~preelectron: electron-simple@1.0.0
+6 silly lifecycle electron-simple@1.0.0~preelectron: no script for preelectron, continuing
+7 info lifecycle electron-simple@1.0.0~electron: electron-simple@1.0.0
+8 verbose lifecycle electron-simple@1.0.0~electron: unsafe-perm in lifecycle true
+9 verbose lifecycle electron-simple@1.0.0~electron: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/vecchio/Documents/workspace/own/electron-simple/node_modules/.bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/vecchio/Documents/workspace/own/electron-simple/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+10 verbose lifecycle electron-simple@1.0.0~electron: CWD: /Users/vecchio/Documents/workspace/own/electron-simple
+11 silly lifecycle electron-simple@1.0.0~electron: Args: [ '-c', 'cross-env NODE_ENV=dev electron app/main.js' ]
+12 verbose stack Error: write EPIPE
+12 verbose stack     at exports._errnoException (util.js:1022:11)
+12 verbose stack     at WriteWrap.afterWrite (net.js:801:14)
+13 verbose cwd /Users/vecchio/Documents/workspace/own/electron-simple
+14 error Darwin 16.6.0
+15 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "electron"
+16 error node v6.9.5
+17 error npm  v3.10.10
+18 error code EPIPE
+19 error errno EPIPE
+20 error syscall write
+21 error write EPIPE
+22 error If you need help, you may report this error at:
+22 error     <https://github.com/npm/npm/issues>
+23 verbose exit [ 1, true ]

@@ -1,12 +1,12 @@
 {
     "name": "electron-simple",
     "version": "1.0.0",
-    "description": "simple app based on electron",
+    "description": "simple application based on electron with react",
     "main": "/app/main.js",
     "scripts": {
         "server": "cross-env NODE_ENV=dev webpack-dev-server",
         "electron": "cross-env NODE_ENV=dev electron app/main.js",
-        "dev": "node ./task/dev-comb.js",
+        "dev": "node ./task/comb.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
