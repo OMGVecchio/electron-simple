@@ -3,7 +3,7 @@
 const electron = require('electron')
 const path = require('path')
 const url = require('url')
-const conf = require('../conf')
+const conf = require('../../conf')
 const winUrl = process.env.NODE_ENV === 'dev'
     ? `http://localhost:${conf.port}/`
     : `file://${__dirname}/XXX`

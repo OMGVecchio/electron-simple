@@ -1,15 +1,16 @@
 'use strict'
 
 import React, { Component } from 'react'
+
+import { DatePicker } from 'antd'
+import 'antd/dist/antd.css'
+
 const ipcRenderer = require('electron').ipcRenderer
 
 export default class Index extends Component {
     // 构造方法
     constructor(props) {
         super(props)
-        this.state = {
-            name: 'vecchio'
-        }
     }
     /* ES6 模式不支持此方法
         getInitialState: function() {
@@ -22,7 +23,7 @@ export default class Index extends Component {
 
     }
     componentDidMount() {
-        this.bindEvent()
+
     }
     // 在组件接收到一个新的prop时被调用
     componentWillReceiveProps() {
@@ -44,25 +45,9 @@ export default class Index extends Component {
     componentWillUnmount() {
 
     }
-    bindEvent() {
-        this.refs.dropObj.ondrapover = () => {
-            return false
-        }
-        this.refs.dropObj.ondrapleave = () => {
-            return false
-        }
-        this.refs.dropObj.ondrop = (e) => {
-            return false
-        }
-    }
     render() {
         return (
             <div style={{width:'100%',height:'100%'}}>
-                <webview src="https://www.github.com/" style={{display:'inline-block', width:'100%', height:'100%'}} />
-                <div ref="dropObj">
-                    {this.state.name}:Drag your file
-                </div>
-                <h4>首页</h4>
             </div>
         )
     }
