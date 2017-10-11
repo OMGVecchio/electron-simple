@@ -3,6 +3,7 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const path = require('path')
 const publicPath = ''
 const conf = require('./conf')
@@ -11,7 +12,7 @@ const conf = require('./conf')
  * https://doc.webpack-china.org/configuration/
  */
 module.exports = {
-    // 编译环境属性。该值为 electron 打包编译时的环境，若不设置，前台调用 electron模块 时需要用 “window.require”
+    // 编译环境属性。该值为 electron 打包编译时的环境，若不设置，前台调用 electron 模块时需要用 “window.require”
     target: 'electron-renderer',
     devtool: 'cheap-module-source-map',
     entry: './app/ui/index.js',
@@ -21,6 +22,7 @@ module.exports = {
         publicPath: publicPath,
         sourceMapFilename: '[name].map'
     },
+    // loaders 参考 https://doc.webpack-china.org/loaders/
     module: {
         // 代替旧版loaders，有更多的可配置选项
         rules: [{
@@ -44,14 +46,19 @@ module.exports = {
             use: ['css-loader?minimize', 'less-loader']
         }, {
             // 移除 module.preLoaders 和 module.postLoaders
-            enforce: 'pre',
+            enforce: 'pre', // pre 前置，post 后置
             test: /\.tsx?$/,
             // 或者 awesome-typescript-loader
             use: ['ts-loader']
         }, {
             test: /\.(png|jpg)$/,
             // 基于 url-loader 可以在限制的范围内生成 Base64 字符串直接嵌入页面
-            use: 'url-loader?limit=8192'
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 8192
+                }
+            }]
         }]
     },
     plugins: [
