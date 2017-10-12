@@ -46,12 +46,12 @@ export default class Index extends Component {
     render() {
         return (
             <div className="app-wrap clearfix">
-                <div className="content-wrap fl">
-                    <div className="content clearfix">
+                <div className="app-content-wrap fl">
+                    <div className="app-content clearfix">
                         { this.props.children }
                     </div>
                 </div>
-                <div className="side-wrap fl">
+                <div className="app-side-wrap fl">
                     <Sidebar />
                 </div>
             </div>

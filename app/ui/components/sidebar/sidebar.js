@@ -3,6 +3,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 
+import { Avatar, Button } from 'antd'
+
 import './sidebar.styl'
 
 export default class Sidebar extends Component {
@@ -12,15 +14,17 @@ export default class Sidebar extends Component {
     render() {
         return (
             <div className='r-sidebar'>
-                <div>
-                    <img src='http://t5.zbjimg.com/r/page/zbjimg.gif' className='avatar' />
-                </div>
+                <Avatar src="http://t5.zbjimg.com/r/page/zbjimg.gif" size="large" />
                 <ul className='menu-item'>
                     <li>
-                        <Link to='/'>首页</Link>
+                        <Button ghost>
+                            <Link to='/'>首页</Link>
+                        </Button>
                     </li>
                     <li>
-                        <Link to='/test'>测试页</Link>
+                        <Button ghost>
+                            <Link to='/configManage'>配置管理</Link>
+                        </Button>
                     </li>
                 </ul>
             </div>

@@ -8,7 +8,7 @@ import 'r/css/common.styl'
 
 import Layout from 'con/Layout'
 import Index from 'con/index'
-import Test from 'con/test'
+import configManage from 'con/config-manage'
 
 render(
     /**
@@ -18,7 +18,7 @@ render(
     <Router history={ hashHistory }>
         <Route path='/' component={ Layout }>
             <IndexRoute component={ Index } />
-            <Route path='test' component={ Test } />
+            <Route path='configManage' component={ configManage } />
         </Route>
     </Router>,
     document.getElementById('app')
