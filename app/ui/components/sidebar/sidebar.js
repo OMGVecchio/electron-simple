@@ -15,7 +15,7 @@ export default class Sidebar extends Component {
                 <div>
                     <img src='http://t5.zbjimg.com/r/page/zbjimg.gif' className='avatar' />
                 </div>
-                <ul>
+                <ul className='menu-item'>
                     <li>
                         <Link to='/'>首页</Link>
                     </li>
@@ -23,7 +23,6 @@ export default class Sidebar extends Component {
                         <Link to='/test'>测试页</Link>
                     </li>
                 </ul>
-                <a onClick={this.back}>返回</a>
             </div>
         )
     }

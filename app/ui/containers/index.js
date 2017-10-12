@@ -2,52 +2,14 @@
 
 import React, { Component } from 'react'
 
-import { DatePicker } from 'antd'
-import 'antd/dist/antd.css'
-
-const ipcRenderer = require('electron').ipcRenderer
-
 export default class Index extends Component {
-    // 构造方法
     constructor(props) {
         super(props)
     }
-    /* ES6 模式不支持此方法
-        getInitialState: function() {
-            return {
-                name: 'vecchio'
-            };
-        }
-    */
-    componentWillMount() {
-
-    }
-    componentDidMount() {
-
-    }
-    // 在组件接收到一个新的prop时被调用
-    componentWillReceiveProps() {
-
-    }
-    // 在组件接收到新的props或者state时被调用
-    shouldComponentUpdate() {
-
-    }
-    // 在组件接收到新的props或者state但还没有render时被调用
-    componentWillUpdate() {
-
-    }
-    // 在组件完成更新后立即调用
-    componentDidUpdate() {
-
-    }
-    // 在组件从 DOM 中移除的时候立刻被调用
-    componentWillUnmount() {
-
-    }
     render() {
         return (
-            <div style={{width:'100%',height:'100%'}}>
+            <div>
+                我是首页
             </div>
         )
     }

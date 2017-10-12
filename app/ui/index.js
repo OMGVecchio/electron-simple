@@ -2,27 +2,24 @@
 
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import { Switch, Router, IndexRoute, Route, hashHistory, Link } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+
 import 'r/css/common.styl'
 
-import Sidebar from 'com/sidebar/sidebar'
-
+import Layout from 'con/Layout'
 import Index from 'con/index'
 import Test from 'con/test'
 
 render(
-    <div className="app-wrap clearfix">
-        <div className="content-wrap fl">
-            <div className="content clearfix">
-                <Router history={ hashHistory }>
-                    <Route path='/' component={ Index } />
-                    <Route path='/test' component={ Test } />
-                </Router>
-            </div>
-        </div>
-        <div className="side-wrap fl">
-            <Sidebar />
-        </div>
-    </div>,
+    /**
+     *  history 三种模式：browserHistory、hashHistory、createMemoryHistory
+     *  todo：采用 hashHistory 报错 [ You cannot PUSH the same path using hash history ]
+     */
+    <Router history={ hashHistory }>
+        <Route path='/' component={ Layout }>
+            <IndexRoute component={ Index } />
+            <Route path='test' component={ Test } />
+        </Route>
+    </Router>,
     document.getElementById('app')
 )

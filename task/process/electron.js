@@ -8,6 +8,11 @@ class Electron extends Process {
     constructor(command, opts) {
         super(command, opts)
     }
+    kill() {
+        exec(utils.fetchKillCommandByName('electron'), (err, data) => {
+            this.process = null
+        })
+    }
     reload() {
         exec(utils.fetchKillCommandByName('electron'), (err, data) => {
             this.run()

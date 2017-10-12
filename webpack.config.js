@@ -65,31 +65,31 @@ module.exports = {
         // 帮助将 CSS 单独打包，而非与 JS 打包在一起让浏览器在加载完脚本后才渲染样式
         new ExtractTextPlugin('style.css'),
         // 从不同的 bundle 中提取所有的公共模块，并且将他们加入公共 bundle 中
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor'
+        // }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
         }),
         // 或在启动命令行中添加 --optimize-minimize
-        new webpack.optimize.UglifyJsPlugin({
-            // 最紧凑的输出
-            beautify: false,
-            // 删除所有的注释
-            comments: false,
-            compress: {
-                // 在UglifyJs删除没有用到的代码时不输出警告
-                warnings: false,
-                // 删除所有的 `console` 语句
-                // 还可以兼容ie浏览器
-                drop_console: true,
-                // 内嵌定义了但是只用到一次的变量
-                collapse_vars: true,
-                // 提取出出现多次但是没有定义成变量去引用的静态值
-                reduce_vars: true
-            }
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     // 最紧凑的输出
+        //     beautify: false,
+        //     // 删除所有的注释
+        //     comments: false,
+        //     compress: {
+        //         // 在UglifyJs删除没有用到的代码时不输出警告
+        //         warnings: false,
+        //         // 删除所有的 `console` 语句
+        //         // 还可以兼容ie浏览器
+        //         drop_console: true,
+        //         // 内嵌定义了但是只用到一次的变量
+        //         collapse_vars: true,
+        //         // 提取出出现多次但是没有定义成变量去引用的静态值
+        //         reduce_vars: true
+        //     }
+        // }),
         // 或在命令行中添加类似 --define process.env.NODE_ENV="'production'" 定义 Nodejs 变量
         // DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV的地方都会被替换为"production"
         new webpack.DefinePlugin({
@@ -157,7 +157,7 @@ module.exports = {
         historyApiFallback: true,
         compress: true,
         // 输出信息
-        stats: 'minimal',
+        stats: 'normal',
         noInfo: false,
         quiet: false,
         // 服务是否为 https

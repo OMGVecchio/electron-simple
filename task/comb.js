@@ -5,8 +5,8 @@ const Electron = require('./process/electron')
 const gulp = require('gulp')
 const path = require('path')
 
-let electron = new Electron('npm run electron')
-let webpack  = new Process('npm run server')
+const electron = new Electron('npm run electron')
+const webpack  = new Process('npm run server')
 
 electron.run()
 webpack.run()
