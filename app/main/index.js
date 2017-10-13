@@ -30,11 +30,6 @@ const {
 
 let win = null
 
-ipcMain.on('test', (e, t) => {
-    console.log(t)
-    e.sender.send('callback', 'vecchio');
-})
-
 const createWindow = () => {
     win = new BrowserWindow({
         width: '900',
@@ -69,3 +64,5 @@ app.on('window-all-closed', () => {
         app.quit()
     }
 })
+
+require('./modules/config-manage/index')
