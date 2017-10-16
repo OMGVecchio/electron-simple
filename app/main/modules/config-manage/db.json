@@ -1,7 +1,14 @@
 {
   "savePathes": {
+    "/Users/vecchio/Documents/test/jquery-modal/bower.json": true,
+    "/Users/vecchio/Documents/test/jquery-modal/CHANGELOG.md": true,
+    "/Users/vecchio/Documents/test/jquery-modal/compositor.json": true,
+    "/Users/vecchio/Documents/test/jquery-modal/gulpfile.js": true,
+    "/Users/vecchio/Documents/test/jquery-modal/jquery.modal.css": true,
     "/Users/vecchio/Documents/test/jquery-modal/jquery.modal.js": true,
-    "/Users/vecchio/Documents/test/jquery-modal/jquery.modal.min.js": true,
-    "/Users/vecchio/Documents/test/jquery-modal/jquery.modal.css": true
+    "/Users/vecchio/Documents/test/jquery-modal/LICENSE": true,
+    "/Users/vecchio/Documents/test/jquery-modal/package.json": true,
+    "/Users/vecchio/Documents/test/jquery-modal/README.md": true,
+    "/private/etc/hosts": true
   }
 }
