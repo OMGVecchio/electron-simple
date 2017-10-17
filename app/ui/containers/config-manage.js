@@ -2,6 +2,7 @@
  * 每个模块给一个 ID 标识
  * id: configManage
  */
+
 'use strict'
 
 import React, { Component } from 'react'

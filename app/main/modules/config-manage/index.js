@@ -9,7 +9,7 @@ const {
 } = electron
 
 const fs = require('fs')
-const execSync = require('child_process').execSync
+const cp = require('child_process')
 
 ipcMain.on(`${ID}-add`, (event, pathes) => {
     if(pathes.length === 0) return
@@ -32,10 +32,19 @@ ipcMain.on(`${ID}-fetchFileContent`, (event, pathLink) => {
 })
 
 ipcMain.on(`${ID}-changeFileContent`, (event, filePath, fileContent) => {
-    fs.writeFile(filePath, fileContent, (err) => {
-        if(!err) return
-        else console.log(err)
+    cp.exec(`echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
+        if(err) {
+            cp.exec(`echo wc19930207! | sudo -S echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
+                if(err) {
+
+                }
+            })
+        }
     })
+    // fs.writeFile(filePath, fileContent, (err) => {
+    //     if(!err) return
+    //     else console.log(err)
+    // })
 })
 
 // 初始化数据库
