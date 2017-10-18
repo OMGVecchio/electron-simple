@@ -61,17 +61,26 @@ module.exports = {
             }]
         }]
     },
+    // 阻止依赖打包进 bundle
+    externals: {
+        // 'react': 'React',
+        // 'react-dom': 'ReactDom',
+        // 'react-router': 'ReactRouter'
+    },
     plugins: [
         // 帮助将 CSS 单独打包，而非与 JS 打包在一起让浏览器在加载完脚本后才渲染样式
         new ExtractTextPlugin('style.css'),
+
         // 从不同的 bundle 中提取所有的公共模块，并且将他们加入公共 bundle 中
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: 'vendor'
         // }),
+
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
         }),
+
         // 或在启动命令行中添加 --optimize-minimize
         // new webpack.optimize.UglifyJsPlugin({
         //     // 最紧凑的输出
@@ -89,13 +98,21 @@ module.exports = {
         //         // 提取出出现多次但是没有定义成变量去引用的静态值
         //         reduce_vars: true
         //     }
+
         // }),
+
         // 或在命令行中添加类似 --define process.env.NODE_ENV="'production'" 定义 Nodejs 变量
         // DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV的地方都会被替换为"production"
         new webpack.DefinePlugin({
             // production 不会再程序出错时给出提示，此处应根据环境做切换
             // 'process.env.NODE_ENV': JSON.stringify('production')
             'process.env.NODE_ENV': JSON.stringify('development')
+        }),
+        // 自动加载模块，而不必到处 import 或 require
+        new webpack.ProvidePlugin({
+            // React: 'react',
+            // ReactDom: 'react-dom',
+            // ReactRouter: 'react-router'
         }),
         // 自动生成首页，避免在入口页面中手动拼装打包后的资源地址
         new HtmlWebpackPlugin({
@@ -110,9 +127,11 @@ module.exports = {
             title: 'electron',
             xhtml: false
         }),
+
         //new CopyWebpackPlugin([{
         //
         //}]),
+
         function() {
             this.plugin('done', (stat) => {
                 console.log('已经打包完了')
