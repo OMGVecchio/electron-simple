@@ -74,6 +74,16 @@ export default class Test extends Component {
     saveFileChange() {
         ipcRenderer.send(`${ID}-changeFileContent`, this.state.selectFilePath, this.state.fileContent)
     }
+    removeFile() {
+        const path = this.state.selectFilePath
+        let savedPathes = this.state.savedPathes
+        savedPathes[path] = false
+        this.setState({
+            fileContent: '',
+            savedPathes
+        })
+        ipcRenderer.send(`${ID}-removeFile`, path)
+    }
     render() {
         const genSavedPathesList = (pathes) => {
             let pathList = []
@@ -101,7 +111,14 @@ export default class Test extends Component {
                         </Button>
                         {
                             this.state.fileContent
-                            ? <Button onClick={ () => this.saveFileChange() }>
+                            ? <Button onClick={ () => this.removeFile() }>
+                                移除
+                              </Button>
+                            : ''
+                        }
+                        {
+                            this.state.fileContent
+                            ? <Button type='primary' onClick={ () => this.saveFileChange() }>
                                 保存
                               </Button>
                             : ''

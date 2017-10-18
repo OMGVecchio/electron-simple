@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 
 import Sidebar from 'com/sidebar/sidebar'
+import ErrMsg  from 'com/err-feedback/err-feedback'
 
 export default class Index extends Component {
     // 构造方法
@@ -54,6 +55,7 @@ export default class Index extends Component {
                 <div className="app-side-wrap fl">
                     <Sidebar />
                 </div>
+                <ErrMsg />
             </div>
         )
     }

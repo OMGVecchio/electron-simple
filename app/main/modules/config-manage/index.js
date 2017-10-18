@@ -32,19 +32,19 @@ ipcMain.on(`${ID}-fetchFileContent`, (event, pathLink) => {
 })
 
 ipcMain.on(`${ID}-changeFileContent`, (event, filePath, fileContent) => {
-    cp.exec(`echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
+    cp.exec(`echo wc19930207! | sudo -S echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
         if(err) {
-            cp.exec(`echo wc19930207! | sudo -S echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
-                if(err) {
-
-                }
-            })
+            console.error(err)
         }
     })
-    // fs.writeFile(filePath, fileContent, (err) => {
-    //     if(!err) return
-    //     else console.log(err)
-    // })
+})
+
+ipcMain.on(`${ID}-removeFile`, (event, path) => {
+    if(path) {
+        let savePathes = db.get('savePathes').value()
+        savePathes[path] = false
+        db.set('savePathes', savePathes).write()
+    }
 })
 
 // 初始化数据库
