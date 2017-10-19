@@ -5,12 +5,10 @@
 
 'use strict'
 
-import React, { Component } from 'react'
 import { Button, Row, Col, Menu, Input } from 'antd'
 import './config-manage.styl'
 
 const ID = 'configManage'
-const electron = require('electron')
 const { ipcRenderer, remote } = electron
 const { dialog } = remote
 const basename = require('path').basename

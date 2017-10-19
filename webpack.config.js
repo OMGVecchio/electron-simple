@@ -63,9 +63,9 @@ module.exports = {
     },
     // 阻止依赖打包进 bundle
     externals: {
-        // 'react': 'React',
-        // 'react-dom': 'ReactDom',
-        // 'react-router': 'ReactRouter'
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        'react-router': 'ReactRouter'
     },
     plugins: [
         // 帮助将 CSS 单独打包，而非与 JS 打包在一起让浏览器在加载完脚本后才渲染样式
@@ -110,9 +110,11 @@ module.exports = {
         }),
         // 自动加载模块，而不必到处 import 或 require
         new webpack.ProvidePlugin({
-            // React: 'react',
-            // ReactDom: 'react-dom',
-            // ReactRouter: 'react-router'
+            React: 'react',
+            Component: ['react', 'Component'],
+            electron: 'electron',
+            ReactDOM: 'react-dom',
+            ReactRouter: 'react-router'
         }),
         // 自动生成首页，避免在入口页面中手动拼装打包后的资源地址
         new HtmlWebpackPlugin({

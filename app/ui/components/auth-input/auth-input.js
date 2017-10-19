@@ -1,8 +1,5 @@
 'use strict'
 
-import React, { Component } from 'react'
-
-const electron = require('electron')
 const { ipcRenderer, remote } = electron
 
 export default class AuthInput extends Component {

@@ -1,7 +1,5 @@
 'use strict'
 
-import React, { Component } from 'react'
-
 const electron = require('electron')
 const { ipcRenderer } = electron
 
