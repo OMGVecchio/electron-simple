@@ -25,6 +25,11 @@ export default class Sidebar extends Component {
                             <Link to='/configManage'>配置管理</Link>
                         </Button>
                     </li>
+                    <li>
+                        <Button ghost>
+                            <Link to='/weather'>天气</Link>
+                        </Button>
+                    </li>
                 </ul>
             </div>
         )

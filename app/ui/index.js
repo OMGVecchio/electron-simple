@@ -7,7 +7,8 @@ import 'r/css/common.styl'
 
 import Layout from 'con/Layout'
 import Index from 'con/index'
-import configManage from 'con/config-manage'
+import ConfigManage from 'con/config-manage'
+import Weather from 'con/weather'
 
 render(
     /**
@@ -17,7 +18,8 @@ render(
     <Router history={ hashHistory }>
         <Route path='/' component={ Layout }>
             <IndexRoute component={ Index } />
-            <Route path='configManage' component={ configManage } />
+            <Route path='configManage' component={ ConfigManage } />
+            <Route path='weather' component={ Weather } />
         </Route>
     </Router>,
     document.getElementById('app')

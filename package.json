@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "antd": "^2.13.1",
+    "axios": "^0.16.2",
     "lodash": "^4.17.4",
     "lowdb": "^1.0.0",
     "marked": "^0.3.6",
