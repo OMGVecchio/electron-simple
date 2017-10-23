@@ -4,13 +4,12 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 const publicPath = ''
 const conf = require('./conf')
 
-/**
- * https://doc.webpack-china.org/configuration/
- */
+// https://doc.webpack-china.org/configuration/
 module.exports = {
     // 编译环境属性。该值为 electron 打包编译时的环境，若不设置，前台调用 electron 模块时需要用 “window.require”
     target: 'electron-renderer',
@@ -26,33 +25,42 @@ module.exports = {
     module: {
         // 代替旧版loaders，有更多的可配置选项
         rules: [{
-            test: /\.css$/,
             // 代替旧版loader，不能省略后缀“-loader”[可通过resolveLoader.moduleExtensions开启旧方法]
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: 'css-loader?minimize'
-            })
-        }, {
             test: /\.styl(us)?$/,
             use: ExtractTextPlugin.extract({
-                use: ['css-loader?minimize', 'stylus-loader']
+                fallback: 'style-loader',
+                use: [{
+                    loader: 'css-loader',
+                    options: {
+                        minimize: true
+                    }
+                }, 'stylus-loader']
+            })
+        }, {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{
+                    loader: 'css-loader',
+                    options: {
+                        minimize: true
+                    }
+                }]
             })
         }, {
             test: /\.jsx?$/,
             exclude: /node_modules/,
             use: 'babel-loader'
         }, {
-            test: /\.less$/,
-            use: ['css-loader?minimize', 'less-loader']
-        }, {
             // 移除 module.preLoaders 和 module.postLoaders
-            enforce: 'pre', // pre 前置，post 后置
             test: /\.tsx?$/,
+            // pre 前置，post 后置
+            enforce: 'pre',
             // 或者 awesome-typescript-loader
             use: ['ts-loader']
         }, {
-            test: /\.(png|jpg)$/,
             // 基于 url-loader 可以在限制的范围内生成 Base64 字符串直接嵌入页面
+            test: /\.(png|jpg)$/,
             use: [{
                 loader: 'url-loader',
                 options: {
@@ -69,49 +77,54 @@ module.exports = {
     },
     plugins: [
         // 帮助将 CSS 单独打包，而非与 JS 打包在一起让浏览器在加载完脚本后才渲染样式
-        new ExtractTextPlugin('style.css'),
+        new ExtractTextPlugin('[name].[hash].css'),
 
         // 从不同的 bundle 中提取所有的公共模块，并且将他们加入公共 bundle 中
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendor'
-        // }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        }),
 
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
         }),
 
+        /*
         // 或在启动命令行中添加 --optimize-minimize
-        // new webpack.optimize.UglifyJsPlugin({
-        //     // 最紧凑的输出
-        //     beautify: false,
-        //     // 删除所有的注释
-        //     comments: false,
-        //     compress: {
-        //         // 在UglifyJs删除没有用到的代码时不输出警告
-        //         warnings: false,
-        //         // 删除所有的 `console` 语句
-        //         // 还可以兼容ie浏览器
-        //         drop_console: true,
-        //         // 内嵌定义了但是只用到一次的变量
-        //         collapse_vars: true,
-        //         // 提取出出现多次但是没有定义成变量去引用的静态值
-        //         reduce_vars: true
-        //     }
+        new webpack.optimize.UglifyJsPlugin({
+            // 最紧凑的输出
+            beautify: false,
+            // 删除所有的注释
+            comments: false,
+            compress: {
+                // 在UglifyJs删除没有用到的代码时不输出警告
+                warnings: false,
+                // 删除所有的 `console` 语句,还可以兼容ie浏览器
+                drop_console: true,
+                // 内嵌定义了但是只用到一次的变量
+                collapse_vars: true,
+                // 提取出出现多次但是没有定义成变量去引用的静态值
+                reduce_vars: true
+            }
+        }),
+        */
 
-        // }),
-
-        // 或在命令行中添加类似 --define process.env.NODE_ENV="'production'" 定义 Nodejs 变量
-        // DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV的地方都会被替换为"production"
+        /**
+         * 或在命令行中添加类似 --define process.env.NODE_ENV="'production'" 定义 Nodejs 变量
+         * DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV 的地方都会被替换为 "production"
+         */
         new webpack.DefinePlugin({
-            // production 不会再程序出错时给出提示，此处应根据环境做切换
-            // 'process.env.NODE_ENV': JSON.stringify('production')
+            /**
+             * production 不会再程序出错时给出提示，此处应根据环境做切换
+             * 'process.env.NODE_ENV': JSON.stringify('production')
+             */
             'process.env.NODE_ENV': JSON.stringify('development')
         }),
         // 自动加载模块，而不必到处 import 或 require
         new webpack.ProvidePlugin({
             React: 'react',
             Component: ['react', 'Component'],
+            axios: 'axios',
             electron: 'electron',
             ReactDOM: 'react-dom',
             ReactRouter: 'react-router'
@@ -130,14 +143,17 @@ module.exports = {
             xhtml: false
         }),
 
-        //new CopyWebpackPlugin([{
-        //
-        //}]),
+        new CopyWebpackPlugin([{
+            // from: path.resolve(__dirname, 'webpack.config.js'),
+            // to: path.resolve(__dirname, 'webpack.config.copy.js'),
+            from: '**/*',
+            to: 'test',
+            toType: 'dir'
+        }]),
 
         function() {
             this.plugin('done', (stat) => {
                 console.log('已经打包完了')
-
             })
         }
     ],
@@ -188,7 +204,9 @@ module.exports = {
         inline: true,
         setup(app) {
             app.get('/test', (req, res, next) => {
-                res.json({test:'自定义路由'})
+                res.json({
+                    test: '自定义路由'
+                })
             })
         }
     }
