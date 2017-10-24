@@ -1,34 +1,47 @@
 'use strict'
 
 const { ipcRenderer, remote } = electron
+import { Modal } from 'antd'
 
 export default class AuthInput extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showPwd: false,
+            visible: false,
             pwd: ''
         }
     }
     register() {
-        ipcRenderer.on('commom-pwd', () => {
+        ipcRenderer.on('common-authcheck', (event, data) => {
             this.setState({
-                showPwd: true
+                visible: true
             })
         })
     }
     componentDidMount() {
         this.register()
     }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        })
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        })
+    }
     render() {
         return (
-            <div>
-                {
-                    this.state.showPwd === true
-                    ? <input value={this.state.pwd} onChange={ (e) => { this.setState({pwd: e.target.value}) } } onClick={ () => { this.setState({showPwd: false}) } }/>
-                    : ''
-                }
-            </div>
+            <Modal
+                title="请输入 ROOT 密码"
+                visible={ this.state.visible }
+                onOk={ e => this.handleOk() }
+                onCancel={ e => this.handleCancel() } >
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+            </Modal>
         )
     }
 }

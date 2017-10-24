@@ -32,9 +32,14 @@ ipcMain.on(`${ID}-fetchFileContent`, (event, pathLink) => {
 })
 
 ipcMain.on(`${ID}-changeFileContent`, (event, filePath, fileContent) => {
-    cp.exec(`echo wc19930207! | sudo -S echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
+    // cp.exec(`echo wc19930207! | sudo -S echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
+    //     if(err) {
+    //         event.send('common-authcheck')
+    //     }
+    // })
+    cp.exec(`echo "${fileContent}" | sudo tee ${filePath}`, (err) => {
         if(err) {
-            console.error(err)
+            event.sender.send('common-authcheck', '')
         }
     })
 })

@@ -29,12 +29,13 @@ module.exports = {
             test: /\.styl(us)?$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                use: [{
-                    loader: 'css-loader',
-                    options: {
-                        minimize: true
-                    }
-                }, 'stylus-loader']
+                use: ['css-loader', 'stylus-loader']
+                // use: [{
+                //     loader: 'css-loader',
+                //     options: {
+                //         minimize: true
+                //     }
+                // }, 'stylus-loader']
             })
         }, {
             test: /\.css$/,
@@ -143,13 +144,14 @@ module.exports = {
             xhtml: false
         }),
 
-        new CopyWebpackPlugin([{
-            // from: path.resolve(__dirname, 'webpack.config.js'),
-            // to: path.resolve(__dirname, 'webpack.config.copy.js'),
-            from: '**/*',
-            to: 'test',
-            toType: 'dir'
-        }]),
+        // TODO 使用待了解
+        // new CopyWebpackPlugin([{
+        //     // from: path.resolve(__dirname, 'webpack.config.js'),
+        //     // to: path.resolve(__dirname, 'webpack.config.copy.js'),
+        //     from: '**/*',
+        //     to: 'test',
+        //     toType: 'dir'
+        // }]),
 
         function() {
             this.plugin('done', (stat) => {

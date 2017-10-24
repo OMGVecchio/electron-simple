@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 import Sidebar from 'com/sidebar/sidebar'
 import ErrMsg  from 'com/err-feedback/err-feedback'
+import AuthInput from 'com/auth-input/auth-input'
 
 export default class Index extends Component {
     // 构造方法
@@ -17,11 +18,17 @@ export default class Index extends Component {
             };
         }
     */
+    /* 解决 this 指针问题，需要引入 babel 的 transform-class-properties 插件
+        attrName = xxx
+     */
     componentWillMount() {
 
     }
     componentDidMount() {
+        // 改方法支持参数函数
+        this.setState((prevState, props) => {
 
+        })
     }
     // 在组件接收到一个新的prop时被调用
     componentWillReceiveProps() {
@@ -56,6 +63,7 @@ export default class Index extends Component {
                     <Sidebar />
                 </div>
                 <ErrMsg />
+                <AuthInput />
             </div>
         )
     }
