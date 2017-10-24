@@ -4,9 +4,10 @@ const electron = require('electron')
 const path = require('path')
 const url = require('url')
 const conf = require('../../conf')
+const releasePath = path.resolve(__dirname, '../../dist/index.html')
 const winUrl = process.env.NODE_ENV === 'dev'
     ? `http://localhost:${conf.port}/`
-    : `file://${__dirname}/XXX`
+    : `file:///${releasePath}`
 
 const {
     app,
@@ -35,7 +36,14 @@ const createWindow = () => {
         width: '900',
         height: '900',
         resizable: true,
-        title: 'test'
+        title: 'test',
+        show: false,
+        backgroundColor: '#002b36',
+    })
+
+    win.on('ready-to-show', function() {
+        win.show();
+        win.focus();
     })
 
     // trun on console

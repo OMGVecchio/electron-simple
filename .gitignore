@@ -19,6 +19,7 @@ DerivedData
 Pods
 Podfile.lock
 /dist/*
+/release/*
 # Self
 /node_modules/*
 npm-debug.log

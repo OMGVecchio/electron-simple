@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
-const publicPath = ''
+const publicPath = './'
 const conf = require('./conf')
 
 // https://doc.webpack-china.org/configuration/
@@ -90,26 +90,6 @@ module.exports = {
             debug: false
         }),
 
-        /*
-        // 或在启动命令行中添加 --optimize-minimize
-        new webpack.optimize.UglifyJsPlugin({
-            // 最紧凑的输出
-            beautify: false,
-            // 删除所有的注释
-            comments: false,
-            compress: {
-                // 在UglifyJs删除没有用到的代码时不输出警告
-                warnings: false,
-                // 删除所有的 `console` 语句,还可以兼容ie浏览器
-                drop_console: true,
-                // 内嵌定义了但是只用到一次的变量
-                collapse_vars: true,
-                // 提取出出现多次但是没有定义成变量去引用的静态值
-                reduce_vars: true
-            }
-        }),
-        */
-
         /**
          * 或在命令行中添加类似 --define process.env.NODE_ENV="'production'" 定义 Nodejs 变量
          * DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV 的地方都会被替换为 "production"
@@ -121,6 +101,7 @@ module.exports = {
              */
             'process.env.NODE_ENV': JSON.stringify('development')
         }),
+
         // 自动加载模块，而不必到处 import 或 require
         new webpack.ProvidePlugin({
             React: 'react',
@@ -130,6 +111,7 @@ module.exports = {
             ReactDOM: 'react-dom',
             ReactRouter: 'react-router'
         }),
+
         // 自动生成首页，避免在入口页面中手动拼装打包后的资源地址
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'app/ui/index.ejs'),
@@ -169,9 +151,14 @@ module.exports = {
             'con': path.join(__dirname, 'app/ui/containers'),
             'u': path.join(__dirname, 'app/utils')
         }
-    },
-    // 详情 see https://webpack.js.org/configuration/dev-server/
-    devServer: {
+    }
+}
+
+if(process.env.NODE_ENV === 'production') {
+
+} else {
+    module.exports.devServer = {
+        // 详情 see https://webpack.js.org/configuration/dev-server/
         staticOptions: {
             redirect: true
         },
@@ -212,4 +199,23 @@ module.exports = {
             })
         }
     }
+    module.plugins.push([
+        // 或在启动命令行中添加 --optimize-minimize
+        new webpack.optimize.UglifyJsPlugin({
+            // 最紧凑的输出
+            beautify: false,
+            // 删除所有的注释
+            comments: false,
+            compress: {
+                // 在UglifyJs删除没有用到的代码时不输出警告
+                warnings: false,
+                // 删除所有的 `console` 语句,还可以兼容ie浏览器
+                drop_console: true,
+                // 内嵌定义了但是只用到一次的变量
+                collapse_vars: true,
+                // 提取出出现多次但是没有定义成变量去引用的静态值
+                reduce_vars: true
+            }
+        })
+    ])
 }
