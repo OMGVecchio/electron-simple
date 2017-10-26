@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
-const publicPath = './'
+const publicPath = ''
 const conf = require('./conf')
 
 // https://doc.webpack-china.org/configuration/
@@ -14,9 +14,9 @@ module.exports = {
     // 编译环境属性。该值为 electron 打包编译时的环境，若不设置，前台调用 electron 模块时需要用 “window.require”
     target: 'electron-renderer',
     devtool: 'cheap-module-source-map',
-    entry: './app/ui/index.js',
+    entry: path.resolve(__dirname, 'app/ui/index.js'),
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'app/fe'),
         filename: '[name].js',
         publicPath: publicPath,
         sourceMapFilename: '[name].map'
@@ -126,15 +126,6 @@ module.exports = {
             xhtml: false
         }),
 
-        // TODO 使用待了解
-        // new CopyWebpackPlugin([{
-        //     // from: path.resolve(__dirname, 'webpack.config.js'),
-        //     // to: path.resolve(__dirname, 'webpack.config.copy.js'),
-        //     from: '**/*',
-        //     to: 'test',
-        //     toType: 'dir'
-        // }]),
-
         function() {
             this.plugin('done', (stat) => {
                 console.log('已经打包完了')
@@ -155,7 +146,34 @@ module.exports = {
 }
 
 if(process.env.NODE_ENV === 'production') {
-
+    module.exports.plugins.concat([
+        // 或在启动命令行中添加 --optimize-minimize
+        new webpack.optimize.UglifyJsPlugin({
+            // 最紧凑的输出
+            beautify: false,
+            // 删除所有的注释
+            comments: false,
+            compress: {
+                // 在UglifyJs删除没有用到的代码时不输出警告
+                warnings: false,
+                // 删除所有的 `console` 语句,还可以兼容ie浏览器
+                drop_console: true,
+                // 内嵌定义了但是只用到一次的变量
+                collapse_vars: true,
+                // 提取出出现多次但是没有定义成变量去引用的静态值
+                reduce_vars: true
+            }
+        })
+    ])
+    
+    // TODO 使用待了解
+    // new CopyWebpackPlugin([{
+    //     // from: path.resolve(__dirname, 'webpack.config.js'),
+    //     // to: path.resolve(__dirname, 'webpack.config.copy.js'),
+    //     from: '**/*',
+    //     to: 'test',
+    //     toType: 'dir'
+    // }]),
 } else {
     module.exports.devServer = {
         // 详情 see https://webpack.js.org/configuration/dev-server/
@@ -199,23 +217,4 @@ if(process.env.NODE_ENV === 'production') {
             })
         }
     }
-    module.plugins.push([
-        // 或在启动命令行中添加 --optimize-minimize
-        new webpack.optimize.UglifyJsPlugin({
-            // 最紧凑的输出
-            beautify: false,
-            // 删除所有的注释
-            comments: false,
-            compress: {
-                // 在UglifyJs删除没有用到的代码时不输出警告
-                warnings: false,
-                // 删除所有的 `console` 语句,还可以兼容ie浏览器
-                drop_console: true,
-                // 内嵌定义了但是只用到一次的变量
-                collapse_vars: true,
-                // 提取出出现多次但是没有定义成变量去引用的静态值
-                reduce_vars: true
-            }
-        })
-    ])
 }

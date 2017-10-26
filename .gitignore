@@ -18,8 +18,9 @@ DerivedData
 # Pods - for those of you who use CocoaPods
 Pods
 Podfile.lock
-/dist/*
+/app/fe/*
 /release/*
 # Self
 /node_modules/*
 npm-debug.log
+.vscode/*

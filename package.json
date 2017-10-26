@@ -5,7 +5,7 @@
   "main": "/app/main/index.js",
   "scripts": {
     "server": "cross-env NODE_ENV=dev webpack-dev-server",
-    "electron": "cross-env NODE_ENV=production electron app/main/index.js",
+    "electron": "cross-env NODE_ENV=dev electron app/main/index.js",
     "dev": "node ./task/comb.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:mac": "cross-env NODE_ENV=production webpack && electron-packager ./ sword --platform=darwin --arch=x64  --overwrite --out ./release/$npm_package_version --version=0.37.8 --ignore='(.github|.git|.DS_Store|TODOS.md|imgPreview|dist)'",
