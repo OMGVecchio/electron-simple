@@ -1,0 +1,34 @@
+@import 'normalize.css'
+@import 'mixin.styl'
+
+*
+	box-sizing: border-box
+	// "caption" 是 CSS 中关键字，它会连接到系统指定字体
+	font: caption
+#app
+	min-width: 900px
+	min-height: 900px
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+.app-wrap
+	width: 100%
+	height: 100%
+.app-content-wrap
+	padding-left: 100px
+	width: 100%
+	height: 100%
+	overflow: hidden
+.app-content
+	position: relative
+	height: 100%
+	overflow-x: hidden
+	overflow-y: scroll
+	min-width: 800px
+.app-side-wrap
+	margin-left: -100%
+	height: 100%
+	overflow: hidden
+	background-color: skyblue

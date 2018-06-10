@@ -1,17 +1,26 @@
 'use strict'
 
-import React, { Component } from 'react'
 import { render } from 'react-dom'
-import { Switch, Router, IndexRoute, Route, hashHistory, Link } from 'react-router'
-import Clock from 'components/clock/clock'
-import World from 'components/world/world'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+
+import 'r/css/common.styl'
+
+import Layout from 'con/Layout'
+import Index from 'con/index'
+import ConfigManage from 'con/config-manage'
+import Weather from 'con/weather'
 
 render(
-    <div>
-        <Router history={ hashHistory }>
-            <Route path='/' component={ Clock } />
-            <Route path='/test' component={ World } />
-        </Router>
-    </div>,
+    /**
+     *  history 三种模式：browserHistory、hashHistory、createMemoryHistory
+     *  todo：采用 hashHistory 报错 [ You cannot PUSH the same path using hash history ]
+     */
+    <Router history={ hashHistory }>
+        <Route path='/' component={ Layout }>
+            <IndexRoute component={ Index } />
+            <Route path='configManage' component={ ConfigManage } />
+            <Route path='weather' component={ Weather } />
+        </Route>
+    </Router>,
     document.getElementById('app')
 )
